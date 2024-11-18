@@ -21,18 +21,5 @@ if len(settings.CORS_ORIGINS) > 0:
 routers.init_app(app)
 
 
-# Endpoint 3: Get a random joke from an external API
-@app.get("/joke")
-def get_joke():
-    try:
-        joke_url = 'https://official-joke-api.appspot.com/random_joke'
-        response = requests.get(joke_url)
-        joke = response.json()
-
-        return JSONResponse(content=joke)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching joke: {str(e)}")
-
-
 if __name__ == '__main__':
     uvicorn.run('main:app', host='127.0.0.1', port=settings.PORT, reload=True)

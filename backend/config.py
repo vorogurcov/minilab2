@@ -13,5 +13,6 @@ class Settings(BaseSettings):
     # НЕЛЬЗЯ ЗАПУШИТЬ ЭТОТ ИЛИ ДРУГИЕ ТОКЕНЫ НА ГИТХАБ. ДОБАВЬТЕ config.py в gitignore!
     GITHUB_API_TOKEN: str = "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"
 
+    UNSPLASH_API_TOKEN: str = "qXPUL_n8HAE8KslULi89FgeFwcf2fb6pVui7NYfiXac"
 
 settings = Settings()
