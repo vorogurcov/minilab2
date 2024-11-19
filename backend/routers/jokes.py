@@ -4,7 +4,7 @@ from fastapi import APIRouter
 
 from backend.config import settings
 
-jokes_router = APIRouter(prefix=settings.URL_PREFIX + '/joke', tags=['Jokes'])
+jokes_router = APIRouter(prefix='/joke', tags=['Jokes'])
 
 @jokes_router.get('/random')
 def get_random_joke():

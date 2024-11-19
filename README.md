@@ -142,13 +142,13 @@ A Postman workspace has been created to demonstrate the API functionality. It in
 1. Pre-configured environment variables:
     - `{{base_url}}` for the local server URL.
     - `{{unsplash_api_token}}` for the Unsplash API token.
-
+    - `{{URL_PREFIX}}` for the predefined '/api/v1' path
 2. Requests for each endpoint:
     - `GET /random` (Unsplash)
     - `GET /photos` (Unsplash)
     - `GET /random` (Jokes)
 
-**Access the Postman workspace here**: [Postman Workspace Link](https://www.postman.com/your-workspace-link)
+**Access the Postman workspace here**: [Postman Workspace Link](https://www.postman.com/spaceflight-geologist-43185237/minilab2)
 
 ---
 
