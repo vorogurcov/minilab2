@@ -149,6 +149,6 @@ A Postman workspace has been created to demonstrate the API functionality. It in
     - `GET /random` (Jokes)
 
 **Access the Postman workspace here**: [Postman Workspace Link](https://www.postman.com/spaceflight-geologist-43185237/minilab2)
-
+To properly use it choose the Local API environment
 ---
 
