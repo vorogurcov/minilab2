@@ -1,5 +1,8 @@
 import sys
 import os
+# Добавление пути к папке backend в sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import requests
 import uvicorn
 from fastapi import FastAPI, HTTPException
@@ -10,8 +13,7 @@ from backend.config import settings
 
 from fastapi.responses import JSONResponse
 
-# Добавление пути к папке backend в sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 app = FastAPI()
 
