@@ -1,66 +1,154 @@
-# Мини-лабораторная 2, осень 24
-## О чём лаба?
-Лаба про реализацию backend приложения без базы данных, которое обращается к сторонним сервисам по API с помощью HTTP запросов. Необходимо выбрать и выполнить один из трёх вариантов задания, описанных ниже.
+# Minilab224 task
+## Variant 1
 
-## Первый вариант задания 
-1. Реализовать собственное бэкенд-приложение на любом языке и любом фреймворке, в котором будет использоваться API внешнего сервиса. В приложении должно быть минимум 3 эндпоинта для реализации логики работы сервиса. Наличие БД не обязательно;
-2. Задокументируйте запросы Вашего сервиса в Postman, прикрепите ссылку на workspace в readme.md;
-3. Прописать в readme.md подробную инструкцию по разворачиванию и конфигурации приложения локально. Прописать в readme.md логику работы Вашего приложения. readme.md должен быть написан строго на английском языке.
+# Unsplash & Jokes API Aggregator
 
+## Project Overview
 
-## Второй вариант задания
-1. Реализуйте логику построения социального графа для пользователя Github, основываясь на готовом fastAPI;
-2. Задокументируйте запросы Вашего сервиса в Postman, прикрепите ссылку на workspace в readme.md;
-3. Пропишите в readme.md логику изменений, которые Вы внесли в исходное приложение. readme.md должен быть написан строго на английском языке.
-4. Добавьте минимум два собственных endpoint, которые будут участвовать в работе приложения;
-5. Модифицируйте или замените существующий frontend. frontend может быть написан не только на JS. Это может быть, например, скрипт на python, который с помощью HTTP запроса будет обращаться к Вашему backend-приложению и строить визуализацию графа по полученным данным.
+This application provides endpoints for fetching random photos and paginated photos from Unsplash, as well as random jokes from the Official Joke API. The service is built using Python and FastAPI, designed to handle API integration seamlessly.
 
+## Features
 
-## Третий вариант задания
-1. Модифицируйте существующее backend-приложение для работы с существующей реализацией frontend;
-Существующая реализация frontend работает со следующими значениями из получаемого от backend ответа:
-- login: имя пользователя
-- followers: список фолловеров пользователя (могут содержать вложенные поля followers)
-- avatar_url: картинка, которую отображать вместо квадратика
-- size: размер иконки (можно модифицировать, основываясь на знаниях о пользователе)
+- Fetch a random photo from Unsplash.
+- Retrieve a page of Unsplash photos.
+- Get a random joke from the Official Joke API.
 
-Необходимо получить для каждого followera исходного пользователя всех его follower-ов и добавить их в ответ в соответствющие поля.
+---
 
-Необходимо вычислить значение size для каждого из пользователей(запрашиваемый пользователь, его фолловеры, и все фолловеры фолловеров, ...). Вычислять размер иконки можно на основании его активности в последнее время, количества репозиториев, других параметров.
+## API Endpoints Documentation
 
-2. Задокументируйте запросы Вашего сервиса в Postman, прикрепите ссылку на workspace в readme.md;
+### Unsplash Endpoints
 
-3. Добавьте минимум два собственных enpoint. Они могут не участвовать в логике frontend приложения, но должны быть задокументированы;
+#### 1. `GET /random`
+Fetches a random photo from Unsplash.
 
-4. Пропишите в readme.md логику изменений, которые Вы внесли в исходное приложение. readme.md должен быть написан строго на английском языке;
+- **URL**: `/random`
+- **Method**: GET
+- **Response**:
+  - Success (200):
+    ```json
+    {
+        "id": "photo_id",
+        "created_at": "2024-01-01T00:00:00Z",
+        "urls": {
+            "full": "photo_url",
+            "regular": "photo_url"
+        },
+        "user": {
+            "name": "Photographer Name"
+        }
+    }
+    ```
+  - Unauthorized (401):
+    ```json
+    {
+        "status": 401,
+        "message": "Ай-ай-ай, неверный токен авторизации!"
+    }
+    ```
 
-## Материалы
-* [Документация GitHub API](https://docs.github.com/en/rest/users/followers) (в коде используется запрос "List followers of a user")
-* [Postman](https://www.postman.com/) (для генерации ссылки нажмите share для желаемого workspace и сгенерируйте JSON-ссылку)
+#### 2. `GET /photos`
+Fetches a paginated list of photos from Unsplash.
 
+- **URL**: `/photos`
+- **Method**: GET
+- **Response**:
+  - Success (200): Array of photo objects similar to `/random`.
+  - Unauthorized (401): Same as `/random`.
 
-## Запуск приложений из репозитория
-* Склонируйте репозиторий
-### Backend
-* Создайте и **активируйте** виртуальное окружение для проекта 
-* Пройдите в корень проекта и установите зависимости с помощью команды pip install -r requrements.txt
-* Запустите в окружении main.py (Обратите внмание, что по умолчанию сервер должен подняться по адресу http://localhost:5000/, в противном случае дефолтный фронтенд не сможет найти его)
-### Frontend
-* Пройдите в папку frontend
-* Установите зависимости с помощью команды npm install
-* Запустите web сервер с помощью команды npm run start:dev. Сервер поднимется по адресу: http://localhost:9000/
+---
 
+### Jokes Endpoints
 
+#### 3. `GET /random`
+Fetches a random joke.
 
-### Настройка репозитория
-Сделайте свою копию репозитория. Как это сделать, описано [тут](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274) или [тут](https://stackoverflow.com/questions/10065526/github-how-to-make-a-fork-of-public-repository-private). Или можно создать чистый репозиторий самостоятельно и залить код туда.
+- **URL**: `/random`
+- **Method**: GET
+- **Response**:
+  - Success (200):
+    ```json
+    {
+        "type": "general",
+        "setup": "Why don't skeletons fight each other?",
+        "punchline": "They don't have the guts."
+    }
+    ```
+  - Unauthorized (401):
+    ```json
+    {
+        "status": 401,
+        "message": "Ай-ай-ай, неверный токен авторизации!"
+    }
+    ```
 
-Если создаете приватный репозиторий, ответным письмом будет отправлен логин преподавателя, которого нужно добавить в коллабораторы.
+---
 
-### Отправка задания
-Выполните задания, сохраните изменения, сделайте commit и push в свой репозиторий.
+## Installation and Configuration
+The app was tested using Python 3.9.13 and packages from requirements.txt
 
-Напишите на почту apicourse@yandex.ru письмо с темой вида MiniLab224 ФИО группа с просьбой проверить работу. В письме должна быть ссылка на репозиторий с выполненной работой, проверяться будет версия, которая лежит в ветке main. В ветке main не должно быть файлов и папок с русскими названиями!
+### Prerequisites
 
-### Дедлайн
-**Дедлайн:** 23:59 18/11/2024 (18 ноября).
+1. **Python 3.9.13**
+2. **pip** package manager
+3. **FastAPI and dependencies** installed (see below)
+
+### Steps
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/vorogurcov/minilab2
+    cd your-repository
+    ```
+
+2. Create virtual environment inside backend folder:
+    ```bash
+    cd backend
+    py -m venv venv
+    ```
+    
+3. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. Run the main.py from the root of the project:
+    ```bash
+    cd .. #if you are in backend folder
+    py backend/main.py
+    ```
+
+5. Access the API Swagger UI at:
+    - [http://127.0.0.1:5000/docs](http://127.0.0.1:8000/docs)
+
+---
+
+## Application Logic
+
+1. **Unsplash API Integration**:
+   - The `GET /random` endpoint fetches a random photo from Unsplash using the `/photos/random` endpoint of Unsplash's API.
+   - The `GET /photos` endpoint retrieves a page of photos from Unsplash's `/photos` endpoint.
+   - Both endpoints use the `client_id` as authentication, which must be provided as an environment variable (`UNSPLASH_API_TOKEN`).
+
+2. **Joke API Integration**:
+   - The `GET /random` endpoint interacts with the Official Joke API to fetch a random joke.
+
+---
+
+## Postman Workspace
+
+A Postman workspace has been created to demonstrate the API functionality. It includes the following:
+
+1. Pre-configured environment variables:
+    - `{{base_url}}` for the local server URL.
+    - `{{unsplash_api_token}}` for the Unsplash API token.
+
+2. Requests for each endpoint:
+    - `GET /random` (Unsplash)
+    - `GET /photos` (Unsplash)
+    - `GET /random` (Jokes)
+
+**Access the Postman workspace here**: [Postman Workspace Link](https://www.postman.com/your-workspace-link)
+
+---
+
